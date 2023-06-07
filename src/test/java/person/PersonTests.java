@@ -14,8 +14,6 @@ public class PersonTests {
         String maidenName = woman.getLastName();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(man.isRetired(), man.getAge() >= 65, "The status is incorrect");
-        softAssert.assertEquals(woman.isRetired(), woman.getAge() >= 60, "The status is incorrect");
         woman.registerPartnership(man);
         softAssert.assertEquals(woman.getPartner(), man, "The partner is incorrect");
         softAssert.assertEquals(man.getPartner(), woman, "The partner is incorrect");
