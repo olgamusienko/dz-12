@@ -9,21 +9,26 @@ import org.testng.asserts.SoftAssert;
 
 public class PersonTests {
 
-    @Test(dataProvider = "personsData", dataProviderClass = TestDataProvider.class)
-    public void testIsRetired(Man man, Woman woman){
-        String maidenName = woman.getLastName();
+    @Test(dataProvider = "testRegisterPartnershipData", dataProviderClass = TestDataProvider.class)
+    public void testRegisterPartnership(Man man, Woman woman){
 
         SoftAssert softAssert = new SoftAssert();
         woman.registerPartnership(man);
-        softAssert.assertEquals(woman.getPartner(), man, "The partner is incorrect");
-        softAssert.assertEquals(man.getPartner(), woman, "The partner is incorrect");
+        softAssert.assertEquals(woman.getPartner(), man, "Problems with RegisterPartnership method");
+        softAssert.assertEquals(man.getPartner(), woman, "Problems with RegisterPartnership method");
         softAssert.assertEquals(woman.getLastName(), man.getLastName(), "The last name is incorrect");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "testDeregisterPartnershipData", dataProviderClass = TestDataProvider.class)
+    public void testDeregisterPartnership(Man man, Woman woman, String maidenName){
+        System.out.println(man.getPartner());
+        SoftAssert softAssert = new SoftAssert();
         man.deregisterPartnership(true);
-        softAssert.assertEquals(woman.getPartner(), null, "The partner exists but should not");
-        softAssert.assertEquals(man.getPartner(), null, "The partner exists but should not");
+        softAssert.assertEquals(woman.getPartner(), null, "Problems with DeregisterPartnership method");
+        softAssert.assertEquals(man.getPartner(), null, "Problems with DeregisterPartnership method");
         softAssert.assertEquals(woman.getLastName(), maidenName, "The maiden name is incorrect" );
         softAssert.assertAll();
-
 
     }
 
